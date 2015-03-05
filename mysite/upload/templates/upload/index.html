@@ -1,0 +1,10 @@
+{% if latest_view_list %}
+    <ul>
+    {% for viewNavigation in latest_view_list %}
+        <li><a href="/upload/{{ viewNavigation.id }}/">{{ viewNavigation.viewNavigation_text }}</a></li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No actions are available.</p>
+{% endif %}

@@ -1,0 +1,27 @@
+<html lang = "en">
+<head>
+    <title>Upload Issue</title>
+</head>
+<body>
+<h1> Please upload ".xls" file to upload issue</h1>
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+     <form method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+            {{ form.as_table }}
+            <input type="submit" value="Upload"/>
+     </form>
+
+<li><a href="/upload/1"> Try type in the tqms issue </a></li>
+
+    <!--<form action="/upload/2/" method="post" enctype="multipart/form-data" accept-charset="utf-8">-->
+        <!--{% csrf_token %}-->
+        <!--<input type="file" name="u_file" value="" />-->
+        <!--<button>Upload</button>-->
+    <!--</form>-->
+</body>
+</html>
