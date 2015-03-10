@@ -1,0 +1,76 @@
+.ublist
+{
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  display: block;
+  font-family: sans-serif;
+  font-size: 16px;
+  height: 128px;
+  letter-spacing: normal;
+  line-height: 22.3999996185303px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 420px;
+  word-spacing: 0px;
+  zoom: 1;
+}
+
+.ubox
+{
+  -webkit-appearance: none;
+  -webkit-rtl-ordering: logical;
+  -webkit-user-select: none;
+  -webkit-writing-mode: horizontal-tb;
+  background-color: rgb(31, 186, 214);
+  border-bottom-color: rgb(31, 186, 214);
+  border-bottom-left-radius: 1.5px;
+  border-bottom-right-radius: 1.5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(31, 186, 214);
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-right-color: rgb(31, 186, 214);
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-top-color: rgb(31, 186, 214);
+  border-top-left-radius: 1.5px;
+  border-top-right-radius: 1.5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-block;
+  font-family: ff-clan-web-pro-wide, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  height: 53px;
+  letter-spacing: normal;
+  line-height: normal;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding-bottom: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 16px;
+  text-align: center;
+  text-indent: 0px;
+  text-shadow: none;
+  text-transform: uppercase;
+  vertical-align: baseline;
+  width: 420px;
+  word-spacing: 0px;
+  writing-mode: lr-tb;
+  zoom: 1;
+}

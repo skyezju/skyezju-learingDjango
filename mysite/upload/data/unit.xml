@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="Chrome 40.0.2214 (Windows 7)" package="unit" timestamp="2015-02-06T19:02:52" id="0" hostname="WAS-CHWU1-MAS" tests="9" errors="0" failures="2" time="0.011">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36"/>
+    </properties>
+    <testcase name="should return true" time="0.005" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-bar-selector"/>
+    <testcase name="should return true" time="0.001" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-calendar"/>
+    <testcase name="should return true" time="0.001" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-data-chunk-loader"/>
+    <testcase name="should return true" time="0" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-dossier"/>
+    <testcase name="should return true" time="0" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-dossiers"/>
+    <testcase name="should return true" time="0.001" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-filter"/>
+    <testcase name="should return true" time="0" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-map-selecto"/>
+    <testcase name="Test 1" time="0.002" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-view_test Case 1">
+      <failure type="">Expected false to be true.
+Error: Expected false to be true.
+    at null.&lt;anonymous&gt; (C:/jenkins/workspace/WebDossierViewer/public/javascripts/mstr-view_test.js:11:22)
+</failure>
+    </testcase>
+    <testcase name="should return true" time="0.001" classname="unit Chrome 40.0.2214 (Windows 7).WebDossierViewer Unit test mstr-xtab">
+      <failure type="">Expected false to be true.
+Error: Expected false to be true.
+    at null.&lt;anonymous&gt; (C:/jenkins/workspace/WebDossierViewer/public/javascripts/mstr-xtab_test.js:11:22)
+</failure>
+    </testcase>
+    <system-out><![CDATA[
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

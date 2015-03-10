@@ -21,11 +21,11 @@ def upload(request):
         if form.is_valid():
             if form.validateDataAll():
                 #upload the data
-
+                form.insertIssue()
                 #clean the form
                 return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))
             else:
-                return HttpResponseRedirect('result.html')
+                return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))
     else:
         form = IssueForm()
     return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))

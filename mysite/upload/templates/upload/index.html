@@ -1,10 +1,46 @@
+<html>
+<head>
+    <title>Choose the way to upload</title>
+    <style type="text/css">
+        body {font-family:Helvetica;}
+        p {font-size: 200%;}
+    </style>
+</head>
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'upload/style.css' %}" />
+
+<body>
+
+ <div style="width:100%;text-align:center">
+<p>
+    Choose the way to upload issues</p>
+<!--<h1> Please fill all info of the issue you want to upload as listed</h1>-->
+<div class=ublist>
+        <div  >
+            <a href="/upload/2/">
+            <input type="button" value="upload with .xls file" class=ubox>
+            </a>
+        </div>
+        <br>
+        <div >
+            <a href="/upload/1/">
+                <input type="button" value="type in your issue id" class=ubox>
+            </a>
+        </div>
+</div>
+
+
 {% if latest_view_list %}
     <ul>
     {% for viewNavigation in latest_view_list %}
-        <li><a href="/upload/{{ viewNavigation.id }}/">{{ viewNavigation.viewNavigation_text }}</a></li>
 
     {% endfor %}
     </ul>
 {% else %}
     <p>No actions are available.</p>
 {% endif %}
+
+</body>
+</html>
