@@ -1,0 +1,55 @@
+<style type="text/css">
+html,body{background:#000; color:#090;}
+</style>
+ 
+{% load staticfiles %}
+<div style="margin-top:10px;">
+<p id='log'></p>
+</div>
+<script src="/static/plugins/jquery/jquery.min.js"></script>
+<script>
+function myalert(){
+    alert("There is an error in js")
+}
+$(function(){
+var line = {{line}}
+var pid = {{pid}}
+var hid = {{hid}}
+$.ajax({
+    url: "{% url 'autodeploy:ajx_handle_log' pid=pid hid=hid line=line %}",
+    type: 'GET',
+    success: function(data){ 
+        if(data != 500){
+          $('#log').append('<p>'+data+'</p>');
+          var t  = setInterval(function(){
+             line++ 
+             var url = "http://"+location.host + '/autodeploy/ajxloghandle/'+pid + '&' + hid + '&' +line
+             $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data){
+                     if(data != 500){
+                         $('#log').append('<p>'+data+'</p>');
+                         window.scrollTo(0,document.body.scrollHeight);
+                     }else{
+                          clearInterval(t);
+                     }
+                },
+                error: function(data) {
+                    myalert();
+                    return false;
+                 }
+             });
+          },200); 
+        }else{
+          myalert();
+        }
+    },
+    error: function(data) {
+        myalert();
+        return false;
+    }
+});
+});
+ 
+</script>

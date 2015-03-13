@@ -3,7 +3,7 @@ from upload.models import viewNavigation,uploadfromfile,uploadfromtext
 from django.shortcuts import *
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from upload.forms import IssueForm, UploadFileForm
+from upload.forms import IssueForm, UploadFileForm, IssueValidationForm
 
 
 
@@ -28,7 +28,8 @@ def upload(request):
                 return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))
     else:
         form = IssueForm()
-    return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))
+        validationForm = IssueValidationForm()
+    return render_to_response('upload/upload.html', {'form': form, 'validationForm': validationForm},context_instance = RequestContext(request))
 
 
 def handle_uploaded_file(f):
@@ -49,3 +50,4 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render_to_response('upload/file.html', {'form': form},context_instance = RequestContext(request))
+

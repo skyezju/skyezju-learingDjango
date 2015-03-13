@@ -2,9 +2,9 @@
 <head>
     <title>Upload Issue</title>
 <style type="text/css">
-body {font-family:Helvetica;}
-p {font-size: 200%}
-
+    body {font-family:Helvetica;}
+    p {font-size: 200%}
+    .center {margin-right:auto; margin-left:auto}
 </style>
 </head>
 
@@ -13,31 +13,59 @@ p {font-size: 200%}
 <link rel="stylesheet" type="text/css" href="{% static 'upload/style.css' %}" />
 
 <body>
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+ <ul class="nav nav-tabs">
+  <li role="presentation"><a href="/upload/">HOME</a></li>
+  <li role="presentation" ><a href="/upload/1/">TYPE</a></li>
+  <li role="presentation" class="active"><a href="/upload/2/">UPLOAD</a></li>
+</ul>
 
  <div style="width:100%;text-align:center">
-<p>Please upload ".xls" file to upload issue</p>
-<!--<h1> Please upload ".xls" file to upload issue</h1>-->
+
     {% if form.errors %}
         <p style="color: red;">
             Please correct the error{{ form.errors|pluralize }} below.
         </p>
     {% endif %}
 
- <div style="width:100%;text-align:center">
-           <form  method="post" enctype="multipart/form-data">
-         {% csrf_token %}
-            {{ form.as_table }}
-            <input type="submit" value="Upload"/>
-     </form>
+ <div class="center" style="width:50%;">
 
-<div class=ublist>
-        <div >
-            <a href="/upload/1/">
-                <input type="button" value="type in your issue id" class=ubox>
-            </a>
-        </div>
-</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <p>Please upload ".xls" file to upload issue</p>
+      </div>
+          <div class="panel-body">
+              {# Display a form #}
+            <form action="" method="post" class="form">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                <button type="submit" class="btn btn-default" >
+                  Upload
+                </button>
+              {% endbuttons %}
+            </form>
+           </div>
+       <div class="panel-heading">Validation result</div>
+            <div class="panel-body">
+                <p>
+                   Validation result
+                </p>
+            </div>
+    </div>
 
+ </div>
+ <div>
+        <p>XLS FILE SAMPLE</p>
+        <img src="/site_media/xlsSampleShadow.PNG">
  </div>
     <!--<form action="/upload/2/" method="post" enctype="multipart/form-data" accept-charset="utf-8">-->
         <!--{% csrf_token %}-->

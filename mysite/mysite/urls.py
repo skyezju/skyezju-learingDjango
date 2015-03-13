@@ -8,4 +8,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^upload/', include('upload.urls', namespace="upload")),
+    (r'^site_media/(?P<path>.*)','django.views.static.serve',{'document_root':'./upload/static/upload/images'}),
+
 )

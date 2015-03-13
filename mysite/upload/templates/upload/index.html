@@ -3,44 +3,44 @@
     <title>Choose the way to upload</title>
     <style type="text/css">
         body {font-family:Helvetica;}
-        p {font-size: 200%;}
+        <!--p {font-size: 200%;}-->
     </style>
 </head>
 
-{% load staticfiles %}
+{# Load the tag library #}
+{% load bootstrap3 %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'upload/style.css' %}" />
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
 
 <body>
 
- <div style="width:100%;text-align:center">
-<p>
-    Choose the way to upload issues</p>
-<!--<h1> Please fill all info of the issue you want to upload as listed</h1>-->
-<div class=ublist>
-        <div  >
-            <a href="/upload/2/">
-            <input type="button" value="upload with .xls file" class=ubox>
-            </a>
-        </div>
-        <br>
-        <div >
-            <a href="/upload/1/">
-                <input type="button" value="type in your issue id" class=ubox>
-            </a>
-        </div>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="/upload/">HOME</a></li>
+  <li role="presentation"><a href="/upload/1/">TYPE</a></li>
+  <li role="presentation"><a href="/upload/2/">UPLOAD</a></li>
+</ul>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>TQMS issues to Rally</h1>
+        <p class="lead">This tool help you upload TQMS issue to rally.
+            <br> If you want to upload bulk issues via .xls file, choose "UPLOAD".
+            <br> If you want to upload issue one by one via your hand, please choose "TPYE".
+        </p>
+    </div>
 </div>
 
 
-{% if latest_view_list %}
-    <ul>
-    {% for viewNavigation in latest_view_list %}
 
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No actions are available.</p>
-{% endif %}
+
+
 
 </body>
 </html>

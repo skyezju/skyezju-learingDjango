@@ -32,13 +32,13 @@ class UploadFileForm(forms.Form):
 
 
 class IssueForm(forms.Form):
-    tqmsID = forms.CharField()
+    tqmsID = forms.CharField(initial="123456")
     tqmsID.label = "TQMS ID"
-    rallyProjectName = forms.CharField()
+    rallyProjectName = forms.CharField(initial="Polaris Server")
     rallyProjectName.label = "Rally Project Name"
-    ownerName = forms.CharField()
+    ownerName = forms.CharField(initial="Ying,Yuqian")
     ownerName.label = "Owner"
-    releaseName = forms.CharField()
+    releaseName = forms.CharField(initial="Polaris")
     releaseName.label = "Release"
     def validateDataAll(self):
         info_dic = {'tqmsID': self.cleaned_data['tqmsID'],
@@ -58,6 +58,11 @@ class IssueForm(forms.Form):
             return True
         return False
 
+class IssueValidationForm(forms.Form):
+
+    rallyProjectName = "Rally Project Name"
+    ownerName = "Owner"
+    releaseName = "Release"
 
 def validateData(info_dic):
     isDataValidated = 0;
