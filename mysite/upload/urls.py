@@ -8,5 +8,7 @@ urlpatterns = patterns('',
                        #url(r'^(?P<pk>\d+)/$', views.UploadFromFileView.as_view(), name='uploadfromfile'),
                        url(r'1/$', views.upload),
                        url(r'2/$', views.upload_file),
+                       url(r'/$/validation/$', views.validation),
+                       url(r'validation/$', views.validation),
                        #url(r'1/$', views.UploadFromTextView.as_view(), name='uploadfromtext'),
                        )

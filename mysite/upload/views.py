@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from upload.forms import IssueForm, UploadFileForm, IssueValidationForm
 
 
-
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = 'upload/index.html'
@@ -16,20 +15,23 @@ class IndexView(generic.ListView):
 
 
 def upload(request):
+    insertStatus = "No issue is uploaded"
     if request.method == 'POST':
         form = IssueForm(request.POST)
         if form.is_valid():
-            if form.validateDataAll():
                 #upload the data
-                form.insertIssue()
-                #clean the form
-                return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))
+            if form.insertIssue():
+                insertStatus = "Issue uploading is successful"
             else:
-                return render_to_response('upload/upload.html', {'form': form},context_instance = RequestContext(request))
+                 insertStatus = "Issue uploading is failed"
+                #clean the form
+            return render_to_response('upload/upload.html', {'form': form, 'Status': insertStatus},context_instance = RequestContext(request))
+        else:
+            return render_to_response('upload/upload.html', {'form': form, 'Status': insertStatus},context_instance = RequestContext(request))
     else:
         form = IssueForm()
-        validationForm = IssueValidationForm()
-    return render_to_response('upload/upload.html', {'form': form, 'validationForm': validationForm},context_instance = RequestContext(request))
+    # form = IssueForm()
+    return render_to_response('upload/upload.html', {'form': form, 'Status': insertStatus}, context_instance = RequestContext(request))
 
 
 def handle_uploaded_file(f):
@@ -51,3 +53,30 @@ def upload_file(request):
         form = UploadFileForm()
     return render_to_response('upload/file.html', {'form': form},context_instance = RequestContext(request))
 
+def validation(request):
+    form = IssueForm(request.POST)
+    print(form)
+    validation_dic = form.validateDataAll()
+    info_dic = form.toData()
+    print validation_dic
+    result = "<br>"
+    if(validation_dic['tqmsID']):
+        result = result + "TQMS Issue: (" + info_dic['tqmsID'] + ")  is validate"+ "<br>"
+    else:
+        result = result + "TQMS Issue: (" + info_dic['tqmsID'] + ") is invalidate"+ "<br>"
+
+    if(validation_dic['rallyProjectName']):
+        result = result + "Rally Project Name: (" + info_dic['rallyProjectName'] + ") is validate"+ "<br>"
+    else:
+        result = result + "Rally Project Name: (" + info_dic['rallyProjectName'] + ") is invalidate"+ "<br>"
+
+    if(validation_dic['ownerName']):
+        result = result + "Owner: (" + info_dic['ownerName'] + ") is validate"+ "<br>"
+    else:
+        result = result + "Owner: (" + info_dic['ownerName'] + ") is invalidate"+ "<br>"
+
+    if(validation_dic['releaseName']):
+        result = result + "Release: (" + info_dic['releaseName'] + ") is validate"+ "<br>"
+    else:
+        result = result + "Release: (" + info_dic['releaseName'] + ") is invalidate"+ "<br>"
+    return HttpResponse(result)

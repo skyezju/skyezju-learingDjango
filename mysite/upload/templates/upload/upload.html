@@ -2,11 +2,72 @@
 
 <html>
 <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var xmlHttp=null;
+
+        function validate()
+        {
+        var data = $( "#inform" ).serialize();
+
+        try
+          {// Firefox, Opera 8.0+, Safari, IE7
+          xmlHttp=new XMLHttpRequest();
+          }
+        catch(e)
+          {// Old IE
+          try
+            {
+            xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+          catch(e)
+            {
+            alert ("Your browser does not support XMLHTTP!");
+            return;
+            }
+          }
+        var url="/validation/";
+        xmlHttp.open("POST",url,false);
+        xmlHttp.send(data);
+        //document.getElementById("txtHint").innerHTML=xmlHttp.responseText;
+        $( "#results" ).text(xmlHttp.responseText);
+        //document.getElementById("txtHint") = data.toString;
+        }
+
+        function showValues() {
+        var str = $( "#inform" ).serialize();
+            $( "#results" ).text( str );
+            }
+         function validateForm()
+        {
+            $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: 'upload/validation/',//提交的URL
+                    data: $( "#inform" ).serialize(), // 要提交的表单,必须使用name属性
+                    async: false,
+                    success: function (data) {
+                         $( "#results" ).html(data);
+                        //$("#common").html(data);//输出提交的表表单
+                    },
+                    error: function (request) {
+                        alert("Connection error");
+                    }
+                });
+             if(! data.indexOf("invalidate") >= 0 )
+             {
+                $('#submit').removeAttr('disabled');
+             }
+        }
+    </script>
+
     <title>Upload Issue</title>
     <style type="text/css">
         body {font-family:Helvetica;text-align:center}
         .center {margin-right:auto; margin-left:auto}
-        p {font-size: 200%}
+        p {font-size: 100%;text-align:left}
+        h {font-size: 120%;}
     </style>
 </head>
 
@@ -22,7 +83,7 @@
 
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'upload/style.css' %}" />
+<!--<link rel="stylesheet" type="text/css" href="{% static 'upload/result.css' %}" />-->
 
 <body>
 <ul class="nav nav-tabs">
@@ -35,23 +96,30 @@
             Please correct the error{{ form.errors|pluralize }} below.
         </p>
     {% endif %}
-<div style="width:50%;" class="center">
+<div style="width:70%;" class="center">
 
     <div class="panel panel-default">
       <div class="panel-heading">
-          <p>Please fill all info of the issue you want to upload as listed</p>
+          <h4>Please fill all info of the issue you want to upload as listed</h4>
       </div>
           <div class="panel-body">
               {# Display a form #}
-            <form action="" method="post" class="form">
+            <!--<form action="" method="post" class="form">-->
+            <form id="inform" action="" class="form">
               {% csrf_token %}
               {% bootstrap_form form %}
-              {% buttons %}
-                <button type="submit" class="btn btn-default" >
+                 {% buttons %}
+                <button id="submit" type="submit" class="btn btn-default" disabled="disabled">
                   Upload
                 </button>
               {% endbuttons %}
             </form>
+            {% buttons %}
+                <button id="valid" type="submit" class="btn btn-default" onclick="validateForm()">
+                  Validation
+                </button>
+              {% endbuttons %}
+
            </div>
 
       <div class="panel-heading">Validation result</div>
@@ -59,16 +127,18 @@
                 <p>
                    Validation result
                 </p>
+                <p><tt id="results"></tt></p>
+            </div>
+       <div class="panel-heading">Uploading result</div>
+            <div class="panel-body">
+                <p>
+                   {{Status}}
+                </p>
+
             </div>
     </div>
 
-
-
  </div>
-
-
-
-
 
 </body>
 </html>

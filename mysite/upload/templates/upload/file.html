@@ -3,7 +3,8 @@
     <title>Upload Issue</title>
 <style type="text/css">
     body {font-family:Helvetica;}
-    p {font-size: 200%}
+    p {font-size: 100%;text-align:center}
+    h {font-size: 100%; text-align:left}
     .center {margin-right:auto; margin-left:auto}
 </style>
 </head>
@@ -28,7 +29,7 @@
   <li role="presentation" class="active"><a href="/upload/2/">UPLOAD</a></li>
 </ul>
 
- <div style="width:100%;text-align:center">
+ <div style="width:100%; text-align:center">
 
     {% if form.errors %}
         <p style="color: red;">
@@ -36,15 +37,15 @@
         </p>
     {% endif %}
 
- <div class="center" style="width:50%;">
+ <div class="center" style="width:50%;" >
 
     <div class="panel panel-default">
       <div class="panel-heading">
-          <p>Please upload ".xls" file to upload issue</p>
+          <h4>Please upload ".xls" file to upload issue</h4>
       </div>
           <div class="panel-body">
               {# Display a form #}
-            <form action="" method="post" class="form">
+            <form id="inform" action="" method="post" class="form">
               {% csrf_token %}
               {% bootstrap_form form %}
               {% buttons %}
@@ -55,10 +56,17 @@
             </form>
            </div>
        <div class="panel-heading">Validation result</div>
-            <div class="panel-body">
+            <div class="panel-body" style="width:100%; text-align:left">
                 <p>
                    Validation result
                 </p>
+            </div>
+       <div class="panel-heading">Uploading result</div>
+            <div class="panel-body" style="width:100%; text-align:left">
+                <p>
+                   {{Status}}
+                </p>
+
             </div>
     </div>
 

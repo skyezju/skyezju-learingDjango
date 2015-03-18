@@ -16,19 +16,24 @@ class UploadFileForm(forms.Form):
         book = xlrd.open_workbook("./upload/uploadedfile/InputFile.xls")
         table = book.sheets()[0]
         nrows = table.nrows
+        if nrows==0:
+            return False;
         for i in range(1,nrows):
             row_value = table.row_values(i)
             info_dic = {'tqmsID': row_value[0],
                 'rallyProjectName': row_value[2],
                 'ownerName':row_value[1],
                 'releaseName':row_value[3]}
+            result_dic = { info_dic['tqmsID']: "The issue is not uploaded yet"}
             if validateData(info_dic):
-                insertIssue(info_dic)
+                if insertIssue(info_dic):
+                    result_dic[info_dic['tqmsID']] =  "The issue (" +info_dic['tqmsID'] + ") is uploaded"
             else:
                 print("The info of "+info_dic['tqmsID']+" is no valid")
         # rename the readed file with time name to backup it.
         os.rename("./upload/uploadedfile/InputFile.xls",
                   "./upload/uploadedfile/InputFile"+"_"+ time.strftime('%Y-%m-%d %X',time.localtime())+"_"+".xls")
+        return result_dic
 
 
 class IssueForm(forms.Form):
@@ -45,10 +50,8 @@ class IssueForm(forms.Form):
                 'rallyProjectName': self.cleaned_data['rallyProjectName'],
                 'ownerName':self.cleaned_data['ownerName'],
                 'releaseName':self.cleaned_data['releaseName']}
-        if validateData(info_dic):
-            return True
-        else:
-            return False
+        return validateData(info_dic)
+
     def insertIssue(self):
         info_dic = {'tqmsID': self.cleaned_data['tqmsID'],
                 'rallyProjectName': self.cleaned_data['rallyProjectName'],
@@ -57,7 +60,12 @@ class IssueForm(forms.Form):
         if insertIssue(info_dic):
             return True
         return False
-
+    def toData(self):
+        info_dic = {'tqmsID': self.cleaned_data['tqmsID'],
+                'rallyProjectName': self.cleaned_data['rallyProjectName'],
+                'ownerName':self.cleaned_data['ownerName'],
+                'releaseName':self.cleaned_data['releaseName']}
+        return info_dic
 class IssueValidationForm(forms.Form):
 
     rallyProjectName = "Rally Project Name"
@@ -65,19 +73,22 @@ class IssueValidationForm(forms.Form):
     releaseName = "Release"
 
 def validateData(info_dic):
-    isDataValidated = 0;
+    validate_dic = {'tqmsID': False,
+                'rallyProjectName': False,
+                'ownerName':False,
+                'releaseName':False}
     if(validateOwner(info_dic['ownerName'],info_dic['rallyProjectName'])):
         print("The owner is valid")
-        isDataValidated = isDataValidated+1
+        validate_dic['ownerName'] = True
     else:
         print("The owner is invalid")
 
     if(validateProject(info_dic['rallyProjectName'])):
         print("The project is valid")
-        isDataValidated = isDataValidated+1
+        validate_dic['rallyProjectName'] = True
         if(validateRelease(info_dic['releaseName'],info_dic['rallyProjectName'])):
             print("The Releaes is valid")
-            isDataValidated = isDataValidated+1
+            validate_dic['releaseName'] = True
         else:
             print("The Release is invalid")
     else:
@@ -85,14 +96,11 @@ def validateData(info_dic):
 
     if(validateTQMSID(info_dic['tqmsID'])):
         print("The TQMS ID is valid")
-        isDataValidated = isDataValidated+1
+        validate_dic['tqmsID'] = True
     else:
         print("The TQMS ID is invalid")
 
-    if(isDataValidated == 4):
-        return True
-    else:
-        return False
+    return validate_dic
 
 def validateTQMSID(tqmsID):
     javacmd = "java -jar "+jarPath+"rallytool.jar -id "+tqmsID+" -action validateID"
